@@ -1,0 +1,3 @@
+Oracle Database Releases 11.2.0.4 hoặc phiên bản lớn hơn: set trường VALID_NODE_CHECKING_REGISTRATION_<listener_name> trong file listener.ora ở thư mục $ORACLE_HOME/network/admin thành local
+
+Oracle Database Release 11.2.0.3 trở về sau thì cần phải nâng cấp phiên bản của Oracle
