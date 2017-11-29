@@ -1,0 +1,31 @@
+import requests
+import urlparse
+import sys
+
+def download_file(url):
+    local_filename = 'a.mp4'
+    r = requests.get(url, stream=True)
+    with open(local_filename, 'wb') as f:
+        for chunk in r.iter_content(chunk_size=1024): 
+            if chunk: 
+                f.write(chunk)
+    return local_filename
+try:
+    kk=sys.argv[1]
+except Exception as e:
+    print "Format is python download.py [youtube_video_id]"
+    exit()
+
+ddd='http://youtube.com/get_video_info?video_id='+kk
+video=requests.get(ddd);
+parsed=urlparse.parse_qs(video.text)
+parsed=parsed['url_encoded_fmt_stream_map']
+a=str(parsed).split(',')
+#print a[0]
+ed=urlparse.parse_qs(a[0])
+#print ed
+
+for j in ed:
+	if 'url' in j:
+		print ed[j][0]
+		download_file(ed[j][0])
