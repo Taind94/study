@@ -1,0 +1,39 @@
+import urlparse, urllib2
+
+
+vid        = "vzS1Vkpsi5k"
+save_title = "YouTube SpaceX - Booster Number 4 - Thaicom 8 06-06-2016"
+url_init   = "https://www.youtube.com/get_video_info?video_id=" + vid
+
+resp = urllib2.urlopen(url_init, timeout=10)
+data = resp.read()
+info =  urlparse.parse_qs(data)
+title = info['title']
+
+print "length:  ", info['length_seconds'][0] + " seconds"
+
+stream_map   = info['adaptive_fmts'][0]
+vid_info     = stream_map.split(",")
+
+mp4_filename = save_title + ".mp4"
+
+for video in vid_info:
+    item = urlparse.parse_qs(video)
+
+    #print 'quality: ', item['quality'][0]
+    #print 'type:    ', item['type'][0]
+
+    url_download  = item['url'][0]
+    resp          = urllib2.urlopen(url_download)
+
+    print resp.headers
+
+    length  = int(resp.headers['Content-Length'])
+    my_file = open(mp4_filename, "w+")
+
+    done, i = 0, 0
+    buff    = resp.read(1024)
+    while buff:
+
+        my_file.write(buff)
+        done += 1024
