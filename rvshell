@@ -1,0 +1,36 @@
+import socket
+
+host = "127.0.0.1"
+port = 8000
+
+try:
+	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	s.bind((host, port))
+	s.listen(1)
+	(client,(ip,port))=s.accept()
+	if client: 
+		print ("Connection is established successfully!\n    -Type ^C to close connection-")
+		client.send("Connection is established successfully!\nSend empty line to end your turn\nType ^C to close connection\n")
+		while 1:
+			print('Send to client(type "done" when finish):')
+			cmd = raw_input("(py-shell) $ ")				
+			while(cmd != "done"):
+				client.send(cmd + "\n")
+				cmd = raw_input("(py-shell) $ ")
+			print("Receive from client (Until meet emtpy response):")
+			client.send("Your turn:")
+			data_recv = client.recv(100).strip()
+			while 1:
+				if not len(data_recv) :  
+	         			print "[+] Empty response."  
+         				break
+        			print(data_recv)
+				data_recv = client.recv(100).strip()       			
+		client.send("Good bye!")	
+
+except KeyboardInterrupt:
+		print "\n[+] ^C Received, closing connection"
+     		s.close()
+except socket.error:
+	print "[+] Fail to establish connection"
+
